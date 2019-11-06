@@ -1,0 +1,9 @@
+	int wait 3
+	cmd <initialize>
+	cmd <arm>
+	nop wait
+	cmd <takeoff>
+	add wait 2
+	nop wait
+	cmd <land>
+	end

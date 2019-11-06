@@ -1,0 +1,48 @@
+	int x     0
+	int y     0
+	int z     50
+	int count 2
+	int wait  5
+start:
+	cmd <initialize>
+	cmd <arm>
+	cmd <takeoff>
+	nop wait
+	cmd <move %x %y %z>
+	add wait 5
+	nop wait
+move1:
+	set x 50
+	set y 50
+	set z 50
+	cmd <move %x %y %z>
+	add wait 5
+	nop wait
+undo_move1:
+	set x -50
+	set y -50
+	set z -50
+	cmd <move %x %y %z>
+	add wait 5
+	nop wait
+move2:
+	set x -50
+	set y -50
+	set z 50
+	cmd <move %x %y %z>
+	add wait 5
+	nop wait
+undo_move2:
+	set x 50
+	set y 50
+	set z -50
+	cmd <move %x %y %z>
+	add wait 5
+	nop wait
+loop_check:
+	sub count 1
+	cmp count 0
+	bne move1
+done:
+	cmd <land>
+	end

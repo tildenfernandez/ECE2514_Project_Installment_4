@@ -114,7 +114,18 @@ void FlightPlanLanguage::executeIntInstruction()
 
 void FlightPlanLanguage::executeAddInstruction()
 {
-	// Insert your code here
+	// Insert your code here (Julie Ruger)
+	int operand1 = instruction_table[program_counter].operand1;
+	int operand2 = instruction_table[program_counter].operand2;
+
+	if (trace_mode == TRACE_ALL_OPCODES_MODE)
+	{
+		int old_value = int_variable_table[operand1].value;
+		cout << indexToIntVariableName(operand1) << " = " << old_value << " + "
+			<< operand2 << " = " << (old_value + operand2) << endl;
+	}
+	int_variable_table[operand1].value += operand2;
+	program_counter++;
 }
 
 
@@ -122,7 +133,18 @@ void FlightPlanLanguage::executeAddInstruction()
 
 void FlightPlanLanguage::executeSubInstruction()
 {
-	// Insert your code here
+	// Insert your code here (Julie Ruger)
+	int operand1 = instruction_table[program_counter].operand1;
+	int operand2 = instruction_table[program_counter].operand2;
+
+	if (trace_mode == TRACE_ALL_OPCODES_MODE)
+	{
+		int old_value = int_variable_table[operand1].value;
+		cout << indexToIntVariableName(operand1) << " = " << old_value << " - "
+			<< operand2 << " = " << (old_value - operand2) << endl;
+	}
+	int_variable_table[operand1].value -= operand2;
+	program_counter++;
 }
 
 
@@ -130,7 +152,18 @@ void FlightPlanLanguage::executeSubInstruction()
 
 void FlightPlanLanguage::executeMulInstruction()
 {
-	// Insert your code here
+	// Insert your code here (Julie Ruger)
+	int operand1 = instruction_table[program_counter].operand1;
+	int operand2 = instruction_table[program_counter].operand2;
+
+	if (trace_mode == TRACE_ALL_OPCODES_MODE)
+	{
+		int old_value = int_variable_table[operand1].value;
+		cout << indexToIntVariableName(operand1) << " = " << old_value << " x "
+			<< operand2 << " = " << (old_value*operand2) << endl;
+	}
+	int_variable_table[operand1].value *= operand2;
+	program_counter++;
 }
 
 

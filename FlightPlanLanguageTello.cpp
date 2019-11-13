@@ -2,7 +2,7 @@
 #include <iostream>
 #include "FlightPlanLanguage.h"
 #include "TelloApi.h"
-
+#include <string>
 
 // Flight Plan Language class version 1.2
 
@@ -48,7 +48,55 @@ void FlightPlanLanguage::executeTelloCommand(int index)
 		else {
 			if (command.substr(0, 6) == "<move ") {
 				// Insert your code here
+
+				//Create strings to hold each substring number
+				string xString;
+				string yString;
+				string zString;
+				int control = 0;
+
+				//Extract each number command from the string
+				for (int i = 6; i < command.length(); i++) {
+					switch (control) {
+					case 1:
+						if (command.substr(i, 1) = " ") {
+							control++;
+						}
+						else {
+							xString.append(command.substr(i, 1));
+						}
+						break;
+					case 2:
+						if (command.substr(i, 1) = " ") {
+							control++;
+						}
+						else {
+							yString.append(command.substr(i, 1));
+						}
+						break;
+					case 3:
+						if (command.substr(i, 1) = ">") {
+							control++;
+						}
+						else {
+							zString.append(command.substr(i, 1));
+						}
+						break;
+					default:
+						i = command.length();
+					}
+				}
+
+				//Convert the strings to integers
+				int xMove = std::stoi(xString);
+				int yMove = std::stoi(yString);
+				int zMove = std::stoi(zString);
+
+				//Tell the drone to move
+				tello_drone->move({ xMove, yMove, zMove });
+
 			}
+
 			else if (command == "<arm>") {
 				tello_drone->arm();
 			}

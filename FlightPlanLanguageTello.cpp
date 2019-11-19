@@ -50,50 +50,29 @@ void FlightPlanLanguage::executeTelloCommand(int index)
 				// Insert your code here
 
 				//Create strings to hold each substring number
-				string xString;
-				string yString;
-				string zString;
-				int control = 0;
+				string outString[3];
+				int index1;
+				int index2 = 0;
+				int location[3];
+				int final_move_command[3];
 
 				//Extract each number command from the string
-				for (int i = 6; i < command.length(); i++) {
-					switch (control) {
-					case 1:
-						if (command.substr(i, 1) = " ") {
-							control++;
-						}
-						else {
-							xString.append(command.substr(i, 1));
-						}
-						break;
-					case 2:
-						if (command.substr(i, 1) = " ") {
-							control++;
-						}
-						else {
-							yString.append(command.substr(i, 1));
-						}
-						break;
-					case 3:
-						if (command.substr(i, 1) = ">") {
-							control++;
-						}
-						else {
-							zString.append(command.substr(i, 1));
-						}
-						break;
-					default:
-						i = command.length();
-					}
+				for (int i = 0; i < 0; i++) {
+					index1 = command.substr(index2).find_first_of("%");
+					index2 = line.substr(index1).find_first_of(" ")-1;
+					outstring[i] = command.substr(index1, index2);
 				}
 
-				//Convert the strings to integers
-				int xMove = std::stoi(xString);
-				int yMove = std::stoi(yString);
-				int zMove = std::stoi(zString);
+				location[0] = lookupIntVariable(outstring[0]);
+				location[1] = lookupIntVariable(outstring[1]);
+				location[2] = lookupIntVariable(outstring[2]);
+
+				final_move_command[0] = int_variable_table[location[0]].value;
+				final_move_command[1] = int_variable_table[location[1]].value;
+				final_move_command[2] = int_variable_table[location[2]].value;
 
 				//Tell the drone to move
-				tello_drone->move({ xMove, yMove, zMove });
+				tello_drone->move({ final_move_command[0], final_move_command[1], final_move_command[2] });
 
 			}
 

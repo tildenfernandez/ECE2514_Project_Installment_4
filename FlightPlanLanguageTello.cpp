@@ -52,17 +52,29 @@ void FlightPlanLanguage::executeTelloCommand(int index)
 				//Create strings to hold each substring number
 				string outString[3];
 				int index1;
-				int index2 = 0;
+				int index2 = 6;
+				int start_location = 6;
 				int location[3];
 				int final_move_command[3];
 
+				/*
 				//Extract each number command from the string
-				for (int i = 0; i < 0; i++) {
+				for (int i = 0; i < 3; i++) {
 					index1 = command.substr(index2).find_first_of("%");
-					index2 = command.substr(index1).find_first_of(" ")-1;
-					outString[i] = command.substr(index1, index2);
+					start_location += index1+1;
+					index2 = command.substr(index1).find_first_of(" ");
+					outString[i] = command.substr(start_location, 1);
+					cout << "Token is equal to: " << outString[i] << endl;
+					index2 += start_location;
+					start_location += 
 				}
+				*/
+			
+				outString[0] = command.substr(7, 1);
+				outString[1] = command.substr(10, 1);
+				outString[2] = command.substr(13, 1);
 
+				
 				location[0] = lookupIntVariable(outString[0]);
 				location[1] = lookupIntVariable(outString[1]);
 				location[2] = lookupIntVariable(outString[2]);
@@ -70,7 +82,7 @@ void FlightPlanLanguage::executeTelloCommand(int index)
 				final_move_command[0] = int_variable_table[location[0]].value;
 				final_move_command[1] = int_variable_table[location[1]].value;
 				final_move_command[2] = int_variable_table[location[2]].value;
-				
+
 				Coordinates moveCoords = { final_move_command[0], final_move_command[1], final_move_command[2] };
 
 				//Tell the drone to move

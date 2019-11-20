@@ -1,0 +1,102 @@
+	int wait	5
+	int x		0
+	int y		0
+	int z		0
+	int control	3
+	int repeat	2
+start:
+	cmd <initialize>
+	cmd <arm>
+	cmd <takeoff>
+	nop wait
+	set x 0
+	set y 0
+	set z 100
+	cmd <move %x %y %z>
+	nop wait
+	set z -100
+	cmd <move %x %y %z>
+	nop wait
+move_forward:
+	set x 100
+	set y 0
+	set z 0
+	cmd <move %x %y %z>
+	nop wait
+move_backward:
+	set x -100
+	set y 0
+	set z 0
+	cmd <move %x %y %z>
+	nop wait
+	sub repeat 1
+	cpm repeat 0
+	bne move_forward
+move_square:
+	set x 0
+	set y 100
+	set z 0
+	cmd <move %x %y %z>
+	nop wait
+	set y 0
+	set z 100
+	cmd <move %x %y %z>
+	nop wait
+	set y -100
+	set z 0
+	cmd <move %x %y %z>
+	nop wait
+	set y 0
+	set z -100
+	cmd <move %x %y %z>
+	nop wait
+move_triangle:
+	set x 0
+	set y -100
+	set z 200
+	cmd <move %x %y %z>
+	add wait 4
+	nop wait
+	set y 200
+	set z 0
+	cmd <move %x %y %z>
+	sub wait 2
+	nop wait
+	set y -100
+	set z -200
+	cmd <move %x %y %z>
+	add wait 2
+	nop wait
+loop_check:
+	sub control 1
+	cmp control 0
+	bne move_trangle
+move_plus:
+	set x 0
+	set y 0
+	set z 75
+	cmd <move %x %y %z>
+	nop wait
+	set x 75
+	set y 0
+	set z 0
+	cmd <move %x %y %z>
+	set x -150
+	cmd <move %x %y %z>
+	nop wait
+	set x 75
+	cmd <move %x %y %z>
+	nop wait
+	set x 0
+	set y 75
+	cmd <move %x %y %z>
+	nop wait
+	set y -150
+	cmd <move %x %y %z>
+	nop wait
+	set y 75
+	cmd <move %x %y %z>
+	nop wait
+done:
+	cmd <land>
+	end

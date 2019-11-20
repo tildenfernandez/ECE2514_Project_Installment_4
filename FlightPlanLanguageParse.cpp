@@ -46,6 +46,7 @@ void FlightPlanLanguage::parseLine(string line)
 	string tokens[MAX_TOKENS];
 
 	int num_tokens = 0;
+	string line;
 
 	// Insert your code here
 	if (!line.empty())

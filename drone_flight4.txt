@@ -30,7 +30,7 @@ move_backward:
 	cmd <move %x %y %z>
 	nop wait
 	sub repeat 1
-	cpm repeat 0
+	cmp repeat 0
 	bne move_forward
 move_square:
 	set x 0

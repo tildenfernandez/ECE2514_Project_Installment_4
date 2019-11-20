@@ -28,6 +28,11 @@ public:
 	void takeoff();
 	void move(Coordinates point);
 	void land();
+	void move_triangle();
+	void move_square();
+	void move_forward();
+	void move_backward();
+
 	
 private:
 

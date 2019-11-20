@@ -63,9 +63,9 @@ void FlightPlanLanguage::executeTelloCommand(int index)
 					outString[i] = command.substr(index1, index2);
 				}
 
-				location[0] = lookupIntVariable(outstring[0]);
-				location[1] = lookupIntVariable(outstring[1]);
-				location[2] = lookupIntVariable(outstring[2]);
+				location[0] = lookupIntVariable(outString[0]);
+				location[1] = lookupIntVariable(outString[1]);
+				location[2] = lookupIntVariable(outString[2]);
 
 				final_move_command[0] = int_variable_table[location[0]].value;
 				final_move_command[1] = int_variable_table[location[1]].value;

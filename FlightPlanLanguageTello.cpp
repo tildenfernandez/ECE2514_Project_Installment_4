@@ -59,8 +59,8 @@ void FlightPlanLanguage::executeTelloCommand(int index)
 				//Extract each number command from the string
 				for (int i = 0; i < 0; i++) {
 					index1 = command.substr(index2).find_first_of("%");
-					index2 = line.substr(index1).find_first_of(" ")-1;
-					outstring[i] = command.substr(index1, index2);
+					index2 = command.substr(index1).find_first_of(" ")-1;
+					outString[i] = command.substr(index1, index2);
 				}
 
 				location[0] = lookupIntVariable(outstring[0]);
@@ -71,7 +71,7 @@ void FlightPlanLanguage::executeTelloCommand(int index)
 				final_move_command[1] = int_variable_table[location[1]].value;
 				final_move_command[2] = int_variable_table[location[2]].value;
 				
-				Coordinates moveCoords = { final_move_command[0], final_move_command[1], final_move_command[2] }
+				Coordinates moveCoords = { final_move_command[0], final_move_command[1], final_move_command[2] };
 
 				//Tell the drone to move
 				tello_drone->move(moveCoords);

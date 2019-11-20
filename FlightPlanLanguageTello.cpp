@@ -70,9 +70,11 @@ void FlightPlanLanguage::executeTelloCommand(int index)
 				final_move_command[0] = int_variable_table[location[0]].value;
 				final_move_command[1] = int_variable_table[location[1]].value;
 				final_move_command[2] = int_variable_table[location[2]].value;
+				
+				Coordinates moveCoords = { final_move_command[0], final_move_command[1], final_move_command[2] }
 
 				//Tell the drone to move
-				tello_drone->move({ final_move_command[0], final_move_command[1], final_move_command[2] });
+				tello_drone->move(moveCoords);
 
 			}
 

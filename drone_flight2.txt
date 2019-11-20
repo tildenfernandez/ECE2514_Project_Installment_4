@@ -1,0 +1,68 @@
+	int init_wait	4
+	int wait	2
+	int x		0
+	int y		0
+	int z		0
+start:
+	cmd <initialize>
+	cmd <arm>
+	cmd <takeoff>
+	nop init_wait
+	set x 0
+	set y 0
+	set z 10
+	cmd <move %x %y %z>
+	nop wait
+	set z -10
+	cmd <move %x %y %z>
+	nop wait
+move_forward:
+	set x 10
+	set y 0
+	set z 0
+	cmd <move %x %y %z>
+	nop wait
+move_backward:
+	set x -10
+	set y 0
+	set z 0
+	cmd <move %x %y %z>
+	nop wait
+move_square:
+	set x 0
+	set y 10
+	set z 0
+	cmd <move %x %y %z>
+	nop wait
+	set y 0
+	set z 10
+	cmd <move %x %y %z>
+	nop wait
+	set y -10
+	set z 0
+	cmd <move %x %y %z>
+	nop wait
+	set y 0
+	set z -10
+	cmd <move %x %y %z>
+	nop wait
+move_triangle:
+	set x 0
+	set y -10
+	set z 20
+	cmd <move %x %y %z>
+	add wait 4
+	nop wait
+	set y 20
+	set z 0
+	cmd <move %x %y %z>
+	sub wait 2
+	nop wait
+	set y -10
+	set z -20
+	cmd <move %x %y %z>
+	add wait 2
+	nop wait
+done:
+	cmd <land>
+	end

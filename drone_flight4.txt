@@ -2,8 +2,8 @@
 	int x		0
 	int y		0
 	int z		0
-	int control	3
-	int repeat	2
+	int control	2
+	int repeat	3
 start:
 	cmd <initialize>
 	cmd <arm>
@@ -69,8 +69,8 @@ move_triangle:
 	nop wait
 loop_check:
 	sub control 1
-	cmp control 0
-	bne move_trangle
+	cmp control 1
+	beq move_trangle
 move_plus:
 	set x 0
 	set y 0

@@ -52,18 +52,18 @@ move_square:
 	nop wait
 move_triangle:
 	set x 0
-	set y -100
-	set z 200
+	set y -75
+	set z 150
 	cmd <move %x %y %z>
 	add wait 4
 	nop wait
-	set y 200
+	set y 150
 	set z 0
 	cmd <move %x %y %z>
 	sub wait 2
 	nop wait
-	set y -100
-	set z -200
+	set y -75
+	set z -150
 	cmd <move %x %y %z>
 	add wait 2
 	nop wait

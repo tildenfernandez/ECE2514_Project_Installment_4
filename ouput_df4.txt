@@ -1,0 +1,394 @@
+Enter FPL file name: drone_flight4.txt
+
+Integer variable table: [index | variable name | initial value]
+
+        0       wait    6
+        1       x       0
+        2       y       0
+        3       z       0
+        4       control 6
+
+Label table: [index | label name | label value]
+
+        0       start   5
+        1       move_square     17
+        2       move_triangle   34
+        3       loop_check      51
+        4       done    56
+
+Drone Command table: [index | command]
+
+        0       <initialize>
+        1       <arm>
+        2       <takeoff>
+        3       <move %x %y %z>
+        4       <move %x %y %z>
+        5       <move %x %y %z>
+        6       <move %x %y %z>
+        7       <move %x %y %z>
+        8       <move %x %y %z>
+        9       <move %x %y %z>
+        10      <move %x %y %z>
+        11      <move %x %y %z>
+        12      <land>
+
+Reconstructed instruction table:
+
+        int wait 6
+        int x 0
+        int y 0
+        int z 0
+        int control 6
+start:
+        cmd <initialize>
+        cmd <arm>
+        cmd <takeoff>
+        nop wait
+        set x 0
+        set y 0
+        set z 50
+        cmd <move %x %y %z>
+        nop wait
+        set z -75
+        cmd <move %x %y %z>
+        nop wait
+move_square:
+        set x 0
+        set y 100
+        set z 0
+        cmd <move %x %y %z>
+        nop wait
+        set y 0
+        set z 100
+        cmd <move %x %y %z>
+        nop wait
+        set y -100
+        set z 0
+        cmd <move %x %y %z>
+        nop wait
+        set y 0
+        set z -100
+        cmd <move %x %y %z>
+        nop wait
+move_triangle:
+        set x 0
+        set y -75
+        set z 100
+        cmd <move %x %y %z>
+        add wait 4
+        nop wait
+        set y 150
+        set z 0
+        cmd <move %x %y %z>
+        sub wait 2
+        nop wait
+        set y -75
+        set z -100
+        cmd <move %x %y %z>
+        add wait 2
+        nop wait
+        sub wait 4
+loop_check:
+        sub control 1
+        cmp control 0
+        bne move_square
+        cmp control -1
+        beq move_triangle
+done:
+        cmd <land>
+        end
+
+Program execution: [instruction index | operation]
+
+        0       wait = 6
+        1       x = 0
+        2       y = 0
+        3       z = 0
+        4       control = 6
+        5       CMD <initialize>
+Sending "command" to Tello
+        6       CMD <arm>
+Sending "speed 30" to Tello
+        7       CMD <takeoff>
+Sending "takeoff" to Tello
+Tello did not respond to "takeoff" after 5 seconds
+        8       Wait until 6 seconds since initialization
+        9       x = 0
+        10      y = 0
+        11      z = 50
+        12      CMD <move %x %y %z>
+Sending "go 0 0 50 30" to Tello
+        13      Wait until 6 seconds since initialization
+        14      z = -75
+        15      CMD <move %x %y %z>
+Sending "go 0 0 -75 30" to Tello
+        16      Wait until 6 seconds since initialization
+        17      x = 0
+        18      y = 100
+        19      z = 0
+        20      CMD <move %x %y %z>
+Sending "go 0 100 0 30" to Tello
+        21      Wait until 6 seconds since initialization
+        22      y = 0
+        23      z = 100
+        24      CMD <move %x %y %z>
+Sending "go 0 0 100 30" to Tello
+        25      Wait until 6 seconds since initialization
+        26      y = -100
+        27      z = 0
+        28      CMD <move %x %y %z>
+Sending "go 0 -100 0 30" to Tello
+        29      Wait until 6 seconds since initialization
+        30      y = 0
+        31      z = -100
+        32      CMD <move %x %y %z>
+Sending "go 0 0 -100 30" to Tello
+        33      Wait until 6 seconds since initialization
+        34      x = 0
+        35      y = -75
+        36      z = 100
+        37      CMD <move %x %y %z>
+Sending "go 0 -75 100 30" to Tello
+        38      wait = 6 + 4 = 10
+        39      Wait until 10 seconds since initialization
+        40      y = 150
+        41      z = 0
+        42      CMD <move %x %y %z>
+Sending "go 0 150 0 30" to Tello
+        43      wait = 10 - 2 = 8
+        44      Wait until 8 seconds since initialization
+        45      y = -75
+        46      z = -100
+        47      CMD <move %x %y %z>
+Sending "go 0 -75 -100 30" to Tello
+        48      wait = 8 + 2 = 10
+        49      Wait until 10 seconds since initialization
+        50      wait = 10 - 4 = 6
+        51      control = 6 - 1 = 5
+        52      5 == 0 ?
+        53      BNE taken to label move_square
+        17      x = 0
+        18      y = 100
+        19      z = 0
+        20      CMD <move %x %y %z>
+Sending "go 0 100 0 30" to Tello
+        21      Wait until 6 seconds since initialization
+        22      y = 0
+        23      z = 100
+        24      CMD <move %x %y %z>
+Sending "go 0 0 100 30" to Tello
+        25      Wait until 6 seconds since initialization
+        26      y = -100
+        27      z = 0
+        28      CMD <move %x %y %z>
+Sending "go 0 -100 0 30" to Tello
+        29      Wait until 6 seconds since initialization
+        30      y = 0
+        31      z = -100
+        32      CMD <move %x %y %z>
+Sending "go 0 0 -100 30" to Tello
+        33      Wait until 6 seconds since initialization
+        34      x = 0
+        35      y = -75
+        36      z = 100
+        37      CMD <move %x %y %z>
+Sending "go 0 -75 100 30" to Tello
+        38      wait = 6 + 4 = 10
+        39      Wait until 10 seconds since initialization
+        40      y = 150
+        41      z = 0
+        42      CMD <move %x %y %z>
+Sending "go 0 150 0 30" to Tello
+        43      wait = 10 - 2 = 8
+        44      Wait until 8 seconds since initialization
+        45      y = -75
+        46      z = -100
+        47      CMD <move %x %y %z>
+Sending "go 0 -75 -100 30" to Tello
+        48      wait = 8 + 2 = 10
+        49      Wait until 10 seconds since initialization
+        50      wait = 10 - 4 = 6
+        51      control = 5 - 1 = 4
+        52      4 == 0 ?
+        53      BNE taken to label move_square
+        17      x = 0
+        18      y = 100
+        19      z = 0
+        20      CMD <move %x %y %z>
+Sending "go 0 100 0 30" to Tello
+        21      Wait until 6 seconds since initialization
+        22      y = 0
+        23      z = 100
+        24      CMD <move %x %y %z>
+Sending "go 0 0 100 30" to Tello
+        25      Wait until 6 seconds since initialization
+        26      y = -100
+        27      z = 0
+        28      CMD <move %x %y %z>
+Sending "go 0 -100 0 30" to Tello
+        29      Wait until 6 seconds since initialization
+        30      y = 0
+        31      z = -100
+        32      CMD <move %x %y %z>
+Sending "go 0 0 -100 30" to Tello
+        33      Wait until 6 seconds since initialization
+        34      x = 0
+        35      y = -75
+        36      z = 100
+        37      CMD <move %x %y %z>
+Sending "go 0 -75 100 30" to Tello
+        38      wait = 6 + 4 = 10
+        39      Wait until 10 seconds since initialization
+        40      y = 150
+        41      z = 0
+        42      CMD <move %x %y %z>
+Sending "go 0 150 0 30" to Tello
+        43      wait = 10 - 2 = 8
+        44      Wait until 8 seconds since initialization
+        45      y = -75
+        46      z = -100
+        47      CMD <move %x %y %z>
+Sending "go 0 -75 -100 30" to Tello
+        48      wait = 8 + 2 = 10
+        49      Wait until 10 seconds since initialization
+        50      wait = 10 - 4 = 6
+        51      control = 4 - 1 = 3
+        52      3 == 0 ?
+        53      BNE taken to label move_square
+        17      x = 0
+        18      y = 100
+        19      z = 0
+        20      CMD <move %x %y %z>
+Sending "go 0 100 0 30" to Tello
+        21      Wait until 6 seconds since initialization
+        22      y = 0
+        23      z = 100
+        24      CMD <move %x %y %z>
+Sending "go 0 0 100 30" to Tello
+        25      Wait until 6 seconds since initialization
+        26      y = -100
+        27      z = 0
+        28      CMD <move %x %y %z>
+Sending "go 0 -100 0 30" to Tello
+        29      Wait until 6 seconds since initialization
+        30      y = 0
+        31      z = -100
+        32      CMD <move %x %y %z>
+Sending "go 0 0 -100 30" to Tello
+        33      Wait until 6 seconds since initialization
+        34      x = 0
+        35      y = -75
+        36      z = 100
+        37      CMD <move %x %y %z>
+Sending "go 0 -75 100 30" to Tello
+        38      wait = 6 + 4 = 10
+        39      Wait until 10 seconds since initialization
+        40      y = 150
+        41      z = 0
+        42      CMD <move %x %y %z>
+Sending "go 0 150 0 30" to Tello
+        43      wait = 10 - 2 = 8
+        44      Wait until 8 seconds since initialization
+        45      y = -75
+        46      z = -100
+        47      CMD <move %x %y %z>
+Sending "go 0 -75 -100 30" to Tello
+        48      wait = 8 + 2 = 10
+        49      Wait until 10 seconds since initialization
+        50      wait = 10 - 4 = 6
+        51      control = 3 - 1 = 2
+        52      2 == 0 ?
+        53      BNE taken to label move_square
+        17      x = 0
+        18      y = 100
+        19      z = 0
+        20      CMD <move %x %y %z>
+Sending "go 0 100 0 30" to Tello
+        21      Wait until 6 seconds since initialization
+        22      y = 0
+        23      z = 100
+        24      CMD <move %x %y %z>
+Sending "go 0 0 100 30" to Tello
+        25      Wait until 6 seconds since initialization
+        26      y = -100
+        27      z = 0
+        28      CMD <move %x %y %z>
+Sending "go 0 -100 0 30" to Tello
+        29      Wait until 6 seconds since initialization
+        30      y = 0
+        31      z = -100
+        32      CMD <move %x %y %z>
+Sending "go 0 0 -100 30" to Tello
+        33      Wait until 6 seconds since initialization
+        34      x = 0
+        35      y = -75
+        36      z = 100
+        37      CMD <move %x %y %z>
+Sending "go 0 -75 100 30" to Tello
+        38      wait = 6 + 4 = 10
+        39      Wait until 10 seconds since initialization
+        40      y = 150
+        41      z = 0
+        42      CMD <move %x %y %z>
+Sending "go 0 150 0 30" to Tello
+        43      wait = 10 - 2 = 8
+        44      Wait until 8 seconds since initialization
+        45      y = -75
+        46      z = -100
+        47      CMD <move %x %y %z>
+Sending "go 0 -75 -100 30" to Tello
+        48      wait = 8 + 2 = 10
+        49      Wait until 10 seconds since initialization
+        50      wait = 10 - 4 = 6
+        51      control = 2 - 1 = 1
+        52      1 == 0 ?
+        53      BNE taken to label move_square
+        17      x = 0
+        18      y = 100
+        19      z = 0
+        20      CMD <move %x %y %z>
+Sending "go 0 100 0 30" to Tello
+        21      Wait until 6 seconds since initialization
+        22      y = 0
+        23      z = 100
+        24      CMD <move %x %y %z>
+Sending "go 0 0 100 30" to Tello
+        25      Wait until 6 seconds since initialization
+        26      y = -100
+        27      z = 0
+        28      CMD <move %x %y %z>
+Sending "go 0 -100 0 30" to Tello
+        29      Wait until 6 seconds since initialization
+        30      y = 0
+        31      z = -100
+        32      CMD <move %x %y %z>
+Sending "go 0 0 -100 30" to Tello
+        33      Wait until 6 seconds since initialization
+        34      x = 0
+        35      y = -75
+        36      z = 100
+        37      CMD <move %x %y %z>
+Sending "go 0 -75 100 30" to Tello
+        38      wait = 6 + 4 = 10
+        39      Wait until 10 seconds since initialization
+        40      y = 150
+        41      z = 0
+        42      CMD <move %x %y %z>
+Sending "go 0 150 0 30" to Tello
+        43      wait = 10 - 2 = 8
+        44      Wait until 8 seconds since initialization
+        45      y = -75
+        46      z = -100
+        47      CMD <move %x %y %z>
+Sending "go 0 -75 -100 30" to Tello
+        48      wait = 8 + 2 = 10
+        49      Wait until 10 seconds since initialization
+        50      wait = 10 - 4 = 6
+        51      control = 1 - 1 = 0
+        52      0 == 0 ?
+        53      BNE skipped
+        54      0 == -1 ?
+        55      BEQ skipped
+        56      CMD <land>
+Sending "land" to Tello
+        57      END

@@ -1,9 +1,8 @@
-	int wait	5
+	int wait	6
 	int x		0
 	int y		0
 	int z		0
-	int control	2
-	int repeat	3
+	int control	6
 start:
 	cmd <initialize>
 	cmd <arm>
@@ -11,27 +10,12 @@ start:
 	nop wait
 	set x 0
 	set y 0
-	set z 100
+	set z 50
 	cmd <move %x %y %z>
 	nop wait
-	set z -100
+	set z -75
 	cmd <move %x %y %z>
 	nop wait
-move_forward:
-	set x 100
-	set y 0
-	set z 0
-	cmd <move %x %y %z>
-	nop wait
-move_backward:
-	set x -100
-	set y 0
-	set z 0
-	cmd <move %x %y %z>
-	nop wait
-	sub repeat 1
-	cmp repeat 0
-	bne move_forward
 move_square:
 	set x 0
 	set y 100
@@ -53,7 +37,7 @@ move_square:
 move_triangle:
 	set x 0
 	set y -75
-	set z 150
+	set z 100
 	cmd <move %x %y %z>
 	add wait 4
 	nop wait
@@ -63,40 +47,17 @@ move_triangle:
 	sub wait 2
 	nop wait
 	set y -75
-	set z -150
+	set z -100
 	cmd <move %x %y %z>
 	add wait 2
 	nop wait
+	sub wait 4
 loop_check:
 	sub control 1
-	cmp control 1
-	beq move_trangle
-move_plus:
-	set x 0
-	set y 0
-	set z 75
-	cmd <move %x %y %z>
-	nop wait
-	set x 75
-	set y 0
-	set z 0
-	cmd <move %x %y %z>
-	set x -150
-	cmd <move %x %y %z>
-	nop wait
-	set x 75
-	cmd <move %x %y %z>
-	nop wait
-	set x 0
-	set y 75
-	cmd <move %x %y %z>
-	nop wait
-	set y -150
-	cmd <move %x %y %z>
-	nop wait
-	set y 75
-	cmd <move %x %y %z>
-	nop wait
+	cmp control 0
+	bne move_square
+	cmp control -1
+	beq move_triangle
 done:
 	cmd <land>
 	end
